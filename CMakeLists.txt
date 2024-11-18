@@ -40,6 +40,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_link_libraries(testRunnerA PRIVATE --coverage)
     target_compile_options(testRunnerB PRIVATE --coverage)
     target_link_libraries(testRunnerB PRIVATE --coverage)
+	
 endif()
 
 # Define the test suite list
@@ -62,27 +63,28 @@ add_custom_target(coverage
     COMMAND ${CMAKE_COMMAND} -E env CTEST_OUTPUT_ON_FAILURE=1 ${CMAKE_CTEST_COMMAND} --output-junit XML_Report.xml 
     COMMAND ${CMAKE_COMMAND} -E echo "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}"
     # Use the config file in the gcovr call
-    COMMAND gcovr -b -r ${CMAKE_BINARY_DIR} .
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+	COMMAND gcovr -r ${CMAKE_SOURCE_DIR}  --exclude '.*_deps.*' --object-directory ${CMAKE_BINARY_DIR}/CMakeFiles/SourceCode.dir/src . 
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     DEPENDS test_suite
 )
 
 # Custom target for coverage report
 add_custom_target(coverage_report
-    COMMAND ${CMAKE_COMMAND} -E remove_directory coverage
-    COMMAND mkdir coverage
-    COMMAND gcovr -r ${CMAKE_BINARY_DIR} . --html-details coverage/report.html
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/coverage
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage
+	COMMAND gcovr -r ${CMAKE_SOURCE_DIR} --exclude '.*_deps.*' --html-details -o ${CMAKE_BINARY_DIR}/coverage/report.html
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     DEPENDS coverage
 )
 
 # Custom target for cleaning the project
 if(WIN32)
-    add_custom_target(clean_project
+    add_custom_target(GoogleTestPseudo
         COMMAND rmdir /s /q build
     )
 else() 
-    add_custom_target(clean_project
+    add_custom_target(GoogleTestPseudo
         COMMAND rm -rf build/
     )
 endif()
+
