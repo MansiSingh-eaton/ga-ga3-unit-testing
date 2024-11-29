@@ -1,4 +1,5 @@
 #include "SourceA.hpp"
+//#include "SourceB.hpp"
 #include <stdexcept>
 
 int SourceA::sum(int x, int y) {
@@ -21,3 +22,5 @@ int SourceA::UsedFunctionB(int x) {
     SourceB b;
     return b.doubleValueB(x);
 }
+
+

@@ -1,0 +1,9 @@
+create_test_suite(SourceA_Test)
+
+add_files_under_test(SourceA_Test SourceA.cpp)
+
+substitute_mock_files(SourceA_Test
+    SourceBMock.hpp
+)
+
+target_sources(SourceA_Test PRIVATE testAusingmockB.cpp)

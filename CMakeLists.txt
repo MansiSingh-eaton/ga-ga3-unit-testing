@@ -12,16 +12,27 @@ FetchContent_MakeAvailable(googletest)
 # Add source files
 add_library(SourceCode STATIC src/SourceA.cpp src/SourceB.cpp)
 
+# Include directories for source and mock headers
+include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/test/mocks)
+
 # Define the GTest imported target
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
+# Define the GMock imported target
+add_library(GMock::GMock INTERFACE IMPORTED)
+target_link_libraries(GMock::GMock INTERFACE gmock_main)
+
 # Add test executables and link them to the source code and GTest
-add_executable(testRunnerA test/testA.cpp)
+add_executable(testRunnerA ${CMAKE_SOURCE_DIR}/test/src/testA.cpp)
 target_link_libraries(testRunnerA PRIVATE SourceCode GTest::GTest)
 
-add_executable(testRunnerB test/testB.cpp)
+add_executable(testRunnerB ${CMAKE_SOURCE_DIR}/test/src/testB.cpp)
 target_link_libraries(testRunnerB PRIVATE SourceCode GTest::GTest)
+
+add_executable(testRunnerMockB ${CMAKE_SOURCE_DIR}/test/src/UsingMockB/testAusingmockB.cpp)
+target_link_libraries(testRunnerMockB PRIVATE  substitute_files GTest::GTest GMock::GMock)
 
 # Enable testing
 enable_testing()
@@ -29,6 +40,7 @@ enable_testing()
 # Add tests
 add_test(NAME testRunnerA COMMAND testRunnerA)
 add_test(NAME testRunnerB COMMAND testRunnerB)
+add_test(NAME testRunnerMockB COMMAND testRunnerMockB)
 
 # Include CTest
 include(CTest)
@@ -40,16 +52,18 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_link_libraries(testRunnerA PRIVATE --coverage)
     target_compile_options(testRunnerB PRIVATE --coverage)
     target_link_libraries(testRunnerB PRIVATE --coverage)
+	target_compile_options(testRunnerMockB PRIVATE --coverage)
+    target_link_libraries(testRunnerMockB PRIVATE --coverage)
 	
 endif()
 
 # Define the test suite list
-set(test_suite_list testRunnerA testRunnerB)
+set(test_suite_list testRunnerA testRunnerB testRunnerMockB)
 
 # Custom target for test suite
 add_custom_target(test_suite
     COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
-    DEPENDS testRunnerA testRunnerB
+    DEPENDS testRunnerA testRunnerB testRunnerMockB
 )
 
 # Custom target for test suite list
@@ -79,11 +93,11 @@ add_custom_target(coverage_report
 
 # Custom target for cleaning the project
 if(WIN32)
-    add_custom_target(GoogleTestPseudo
+    add_custom_target(Cleanup
         COMMAND rmdir /s /q build
     )
 else() 
-    add_custom_target(GoogleTestPseudo
+    add_custom_target(Cleanup
         COMMAND rm -rf build/
     )
 endif()

@@ -1,6 +1,5 @@
 #ifndef SOURCE_A_HPP
 #define SOURCE_A_HPP
-
 #include "SourceB.hpp"
 
 class SourceA {
