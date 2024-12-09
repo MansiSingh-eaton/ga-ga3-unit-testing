@@ -16,7 +16,8 @@ The following are instructions on getting a unit test environment up and run com
 
 # Building
 Once all requirements and setup are complete, execute the follwoing to build and run the unit tests:
-Windows : cmake -S GoogleTestPseudo -B GoogleTestPseudo\build -G "MinGW Makefiles"
+1. Windows : cmake -S GoogleTestPseudo -B GoogleTestPseudo\build -G "MinGW Makefiles"
+2. 
 
 
 
