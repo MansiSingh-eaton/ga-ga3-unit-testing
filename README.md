@@ -16,16 +16,18 @@ The following are instructions on getting a unit test environment up and run com
 
 # Building
 1. Once all requirements and setup are complete, execute the follwoing to build and run the unit tests:
- 
- cd C:/GTestPseudo
- Windows : cmake -S GoogleTestPseudo -B GoogleTestPseudo\build -G "MinGW Makefiles"
- cmake --build GoogleTestPseudo/build --target test_suite
+    cd C:/GTestPseudo
+    Windows : cmake -S GoogleTestPseudo -B GoogleTestPseudo\build -G "MinGW Makefiles"
+    cmake --build GoogleTestPseudo/build --target test_suite
 3. To generate code coverage output on command line:
-
-cmake --build GoogleTestPseudo/build --target coverage
+   cmake --build GoogleTestPseudo/build --target coverage
 4. To generate code coverage html report:
+   cmake --build GoogleTestPseudo/build --target coverage_report
 
-cmake --build GoogleTestPseudo/build --target coverage_report
+# Description
+Unit testing framework has been added and an example unit test can be found in the following path:
+
+test/UnitTest/src/SourceA/SourceA_Test.cpp
 
 
 
