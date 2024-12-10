@@ -4,15 +4,15 @@ The following are instructions on getting a unit test environment up and run com
 1. Install Make
 2. Run command "Choco install make"
 3. Install GCC/g++
-   Link :  https://jmeubank.github.io/tdm-gcc/download/
-   Set environment variable
+   1. Link :  https://jmeubank.github.io/tdm-gcc/download/
+   2. Set environment variable
 4. Install Cmake
-   Link :  https://cmake.org/install/
-   Set environment variable
+   1. Link :  https://cmake.org/install/
+   2. Set environment variable
 5. pip install gcovr
 6. Add path in environment variable
 7. gcovr --version
-   Link: https://sourceforge.net/projects/mingw/
+   1. Link: https://sourceforge.net/projects/mingw/
 
 # Building
 1. Once all requirements and setup are complete, execute the follwoing to build and run the unit tests:
@@ -22,12 +22,11 @@ The following are instructions on getting a unit test environment up and run com
 3. To generate code coverage output on command line:
     1. cmake --build GoogleTestPseudo/build --target coverage
 4. To generate code coverage html report:
-    2. cmake --build GoogleTestPseudo/build --target coverage_report
+    1. cmake --build GoogleTestPseudo/build --target coverage_report
 
 # Description
 Unit testing framework has been added and an example unit test can be found in the following path:
-
- 1. test/UnitTest/src/SourceA/SourceA_Test.cpp
+  1. test/UnitTest/src/SourceA/SourceA_Test.cpp
 
 
 
