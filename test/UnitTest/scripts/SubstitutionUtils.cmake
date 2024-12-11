@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
 include(${UNIT_TEST_ROOT}/scripts/GlobUtils.cmake)
 
@@ -15,7 +15,7 @@ function(substitute_files substitute_type target_name)
         if(${file_name} MATCHES "\\.h$|\\.hpp$")
             target_include_directories(${target_name} PRIVATE ${CMAKE_BINARY_DIR}/GLOB/${target_name}/${file_dir})
         endif()
-
+        
         if(${file_name} MATCHES "\\.c$|\\.cpp$")
             target_sources(${target_name} PRIVATE ${CMAKE_BINARY_DIR}/GLOB/${target_name}/${file})
         endif()
@@ -38,10 +38,12 @@ function(include_source_files target_name)
         file(COPY ${SOURCE_CODE}/${file} DESTINATION ${CMAKE_BINARY_DIR}/GLOB/${target_name}/src/${file_dir})
 
         if(${file_name} MATCHES "\\.h$|\\.hpp$")
+        message(STATUS "Adding include directory ${CMAKE_BINARY_DIR}/GLOB/${target_name}/src/${file_dir}")
             target_include_directories(${target_name} PRIVATE ${CMAKE_BINARY_DIR}/GLOB/${target_name}/src/${file_dir})
         endif()
 
         if(${file_name} MATCHES "\\.c$|\\.cpp$")
+        message(STATUS "Adding source file : ${file_name}")
             target_sources(${target_name} PRIVATE ${CMAKE_BINARY_DIR}/GLOB/${target_name}/src/${file})
         endif()
 

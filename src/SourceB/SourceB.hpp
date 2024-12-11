@@ -1,4 +1,3 @@
-#pragma once
 #ifndef SOURCE_B_HPP
 #define SOURCE_B_HPP
 

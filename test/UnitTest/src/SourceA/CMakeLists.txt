@@ -10,7 +10,9 @@ include_source_files( SourceA_Test
 
 # Substitute mock files
 substitute_mock_files(SourceA_Test 
-src/SourceB/SourceB.hpp)
+src/SourceB/SourceB.hpp
+src/SourceB/SourceB.cpp
+)
 
 # Add test sources
 target_sources(SourceA_Test PRIVATE SourceA_Test.cpp)

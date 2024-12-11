@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
 function(create_test_suite target_name)
     add_executable(${target_name})
@@ -9,7 +9,8 @@ function(create_test_suite target_name)
         PRIVATE GTest::gtest_main gmock gmock_main
     )
 
-    gtest_discover_tests(${target_name})
+    #gtest_discover_tests(${target_name})
+    gtest_discover_tests(${target_name} TEST_PREFIX ${target_name}::)
     add_test(NAME ${target_name} COMMAND ${target_name})
 
     get_property(TEST_EXECUTABLES GLOBAL PROPERTY TEST_EXECUTABLES)
@@ -17,9 +18,8 @@ function(create_test_suite target_name)
     list(APPEND TEST_EXECUTABLES ${target_name})
 
     set_property(GLOBAL PROPERTY TEST_EXECUTABLES "${TEST_EXECUTABLES}")
-    
     set(tmp_test_suite_list ${test_suite_list})
-
+    
     if(NOT "${test_suite_list}" STREQUAL "")
         set(test_suite_list "${tmp_test_suite_list};${target_name}" CACHE INTERNAL "")
     else()
