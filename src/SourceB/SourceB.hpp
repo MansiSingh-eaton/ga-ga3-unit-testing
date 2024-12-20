@@ -3,10 +3,12 @@
 
 class SourceB {
 public:
-  static int doubleValueB(int x);
   static int tripleValue(int x);
   static bool isPositive(int x);
   static int factorial(int x);
+
+private:
+  static int doubleValueB(int x);
 };
 
 

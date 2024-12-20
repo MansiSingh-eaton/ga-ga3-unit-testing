@@ -21,8 +21,8 @@ TEST_F(SourceA_Test, SumTest) {
     //SourceB_MOCK mockB;
 
     EXPECT_CALL(*mockB, doubleValueB(2)).WillOnce(testing::Return(4));
+   
     EXPECT_CALL(*mockB, doubleValueB(3)).WillOnce(testing::Return(6));
-
     SourceA a;
     EXPECT_EQ(a.sum(2, 3), 10);
 }

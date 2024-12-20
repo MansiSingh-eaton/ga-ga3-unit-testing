@@ -6,6 +6,7 @@
 class SourceB_MOCK {
 public:
     MOCK_METHOD(int, doubleValueB, (int));
+    
 };
 
 class SourceB {
@@ -30,5 +31,7 @@ public:
 private:
     static SourceB_MOCK* mock;
 };
+
+
 
 #endif

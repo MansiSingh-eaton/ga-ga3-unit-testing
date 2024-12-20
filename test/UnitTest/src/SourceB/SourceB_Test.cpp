@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
+#define private public
 #include "SourceB.hpp"
-#include <gtest/gtest.h>
+#undef private
 
 TEST(SourceB_Test, DoubleValueTest) {
     SourceB b;
